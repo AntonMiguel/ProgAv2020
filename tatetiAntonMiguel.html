@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tatetí piola 0.1</title>
+
+  <style>
+    h1{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size:180%;
+      text-align:center;
+    }
+    h2{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size:180%;
+      text-align:center;
+      margin: 0;
+      padding: 4px;
+      color: #050577ff;
+      text-decoration: underline;
+    }
+    h3{
+      font-family: Arial, Helvetica, sans-serif;
+      font-size:140%;
+      text-align:center;
+      margin: 0;
+      padding: 3px;
+    }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+    }
+    
+    td {
+      font-size:350%;
+      border: 2px solid #000000;
+      text-align: center;
+      padding: 0px;
+      width: 85px;
+      height: 84px;
+    }
+
+    button{
+      font-size: 140%;
+    }
+
+    input{
+      font-size: 100%;
+    }
+
+    label{
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bolder;
+      font-size: 110%;
+    }
+  </style>
+</head>
+
+
+
+<body style= "background-color: #79b0ffff">
+
+    <h1 id="cartel">Bienvenidos al Tatetí más piola</h1>
+
+    <center><form id="formPosta">
+    <label for="labelNombre1">Nombre del jugador 1:</label>
+    <input type="text" id="name1" name="name1"><br><br>
+    <label for="labelNombre2">Nombre del jugador 2:</label>
+    <input type="text" id="name2" name="name2"><br><br>
+    <input type="button" onclick="ingresarNombres()" value="Iniciar partida">
+</form> </center>
+
+
+<div id=divJuego>
+  <table style=";margin-left:auto;margin-right:auto;">
+    <tr>
+        <td id="celda00" onclick='celdaClick(0,0, this);'></td>
+        <td id="celda01" onclick='celdaClick(0,1, this);'></td>
+        <td id="celda02" onclick='celdaClick(0,2, this);'></td>
+    </tr>
+    <tr>
+        <td id="celda10" onclick='celdaClick(1,0, this);'></td>
+        <td id="celda11" onclick='celdaClick(1,1, this);'></td>
+        <td id="celda12" onclick='celdaClick(1,2, this);'></td>
+    </tr>
+    <tr>
+        <td id="celda20" onclick='celdaClick(2,0, this);'></td>
+        <td id="celda21" onclick='celdaClick(2,1, this);'></td>
+        <td id="celda22" onclick='celdaClick(2,2, this);'></td>
+    </tr>
+  </table>
+  
+  <br>
+  <div id=divBotonRevancha>
+    <center><button onclick="nuevaRonda()">Revancha!</button></center>
+  </div>
+  
+  <h2>Puntaje</h2>
+  <h3 id="captionJug1"></h3>
+  <h3 id="captionJug2"></h3>
+  <h3 id="captionEmpates"></h3>
+
+</div>
+
+<script src="tatetiAntonMiguel.js"></script>
+
+</body>
+</html>
