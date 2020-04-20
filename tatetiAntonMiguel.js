@@ -1,14 +1,8 @@
-/*  COSAS QUE FALTAN 
+/*  COSAS QUE PODRÍA MEJORAR 
 
     Mantener un historial?
 
     Puntaje más lindo? El centrado queda medio feo
-
-    Que nombres no puedan ser vacíos ni muy largos?
-
-    El flujo de la página es horrible creo... llamo las funciones y no retornan nunca?
-        me falta algo que setee la próxima función?
-        o tener una función main y llamar a las demás desde ahí? (que vayan retornando)
 */
 
 var numJugadorDeTurno = 0;
@@ -26,20 +20,26 @@ var captionJug2 = document.getElementById("captionJug2");
 var captionEmpates = document.getElementById("captionEmpates");
 var divJuego = document.getElementById("divJuego");
 var divBotonRevancha = document.getElementById("divBotonRevancha");
-var partidaEnCurso = true;                                         //Cuando vale true, permite modificar las celdas            //se pone en false cuando termina una ronda... esperando la revancha
+var inputNombre1 = document.getElementById("name1");
+var inputNombre2 = document.getElementById("name2");
+var partidaEnCurso = true;                                         //Cuando vale true, permite escribir las celdas            //se pone en false cuando termina una ronda... esperando la revancha
 
 divJuego.style.display = "none"; 
 
 
 function ingresarNombres(){
-    document.getElementById("formPosta").style.display="none";
-    nombreJug= [document.getElementById("name1").value, document.getElementById("name2").value];
-    captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
-    captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
-    captionEmpates.innerHTML = "Empates: " + empates;
-    divJuego.style.display = "block"; 
-    nuevaRonda();
+     if ((inputNombre1.value == "")||(inputNombre2.value == "")){
+        cartel.innerHTML = "No se pueden usar nombres vacíos!"
+    }else{
+        document.getElementById("formPosta").style.display="none";
+        nombreJug= [inputNombre1.value.substring(0,40), inputNombre2.value.substring(0,40)];
+        captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
+        captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
+        captionEmpates.innerHTML = "Empates: " + empates;
+        divJuego.style.display = "block"; 
+        nuevaRonda();
     }
+}
 
 
 function nuevaRonda(){
