@@ -28,17 +28,16 @@ divJuego.style.display = "none";
 
 
 function ingresarNombres(){
-     if ((inputNombre1.value == "")||(inputNombre2.value == "")){
+    if ((inputNombre1.value == "")||(inputNombre2.value == "")){
         cartel.innerHTML = "No se pueden usar nombres vacíos!"
-    }else{
-        document.getElementById("formPosta").style.display="none";
-        nombreJug= [inputNombre1.value.substring(0,40), inputNombre2.value.substring(0,40)];
-        captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
-        captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
-        captionEmpates.innerHTML = "Empates: " + empates;
-        divJuego.style.display = "block"; 
-        nuevaRonda();
     }
+    document.getElementById("formPosta").style.display="none";
+    nombreJug= [inputNombre1.value.substring(0,40), inputNombre2.value.substring(0,40)];
+    captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
+    captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
+    captionEmpates.innerHTML = "Empates: " + empates;
+    divJuego.style.display = "block"; 
+    nuevaRonda();   
 }
 
 
@@ -84,16 +83,6 @@ function empate(){
 }
 
 
-function victoria(jug){
-    partidaEnCurso = false;
-    cartel.innerHTML = nombreJug[jug] + " ha ganado!";
-    victorias[jug]++;
-    captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
-    captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
-    divBotonRevancha.style.visibility = "visible";
-}
-
-
 function celdaClick (fila, columna, celdaClickeada){
     if (partidaEnCurso == false){
         return;
@@ -102,39 +91,53 @@ function celdaClick (fila, columna, celdaClickeada){
         console.log("Celda usada");
         return;
     }
-
-    console.log("fila " + fila + ", columna "+ columna);
     celda[fila][columna] = simbolo[numJugadorDeTurno];
     celdaClickeada.innerHTML = simbolo[numJugadorDeTurno];
+    console.log(simbolo[numJugadorDeTurno] + " fila " + fila + ", columna "+ columna);
+    if (checkVictoria(fila, columna)){
+        victoria();
+    }else{
+        proxTurno();
+    }    
+}
+
+
+function checkVictoria(fila, columna){
     var i;
-    texto = "";
+    var texto = "";
     for (i = 0; i < 3; i++) {
         texto += celda[fila][i];
     }
-    if (texto==simboloWin[numJugadorDeTurno]){                      //chequea victoria fila
-     victoria(numJugadorDeTurno);
+    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria fila
+        return true;
     }
-    else{
-        texto= "";
-        for (i = 0; i < 3; i++) {
-            texto += celda[i][columna];
-        }
-        if (texto==simboloWin[numJugadorDeTurno]){                  //chequea victoria columna
-            victoria(numJugadorDeTurno);
-        }
-        else{
-            texto = celda[0][0]+celda[1][1]+celda[2][2];
-            if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria por diagonal \
-                victoria(numJugadorDeTurno);
-            }
-            else{
-                texto = celda[2][0]+celda[1][1]+celda[0][2];
-                if (texto==simboloWin[numJugadorDeTurno]){           //chequea victoria por diagonal /
-                    victoria(numJugadorDeTurno);
-                }
-                else{proxTurno();}
-            }
-        }
+    
+    texto= "";
+    for (i = 0; i < 3; i++) {
+        texto += celda[i][columna];
     }
+    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria columna
+        return true;
+    }
+    
+    texto = celda[0][0]+celda[1][1]+celda[2][2];
+    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria por diagonal \
+        return true;
+    }
+    
+    texto = celda[2][0]+celda[1][1]+celda[0][2];
+    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria por diagonal /
+        return true;
+    }
+    return false;
+}
 
+
+function victoria(){
+    partidaEnCurso = false;
+    cartel.innerHTML = nombreJug[numJugadorDeTurno] + " ha ganado!";
+    victorias[numJugadorDeTurno]++;
+    captionJug1.innerHTML = nombreJug[0] + ": " + victorias[0];
+    captionJug2.innerHTML = nombreJug[1] + ": " + victorias[1];
+    divBotonRevancha.style.visibility = "visible";
 }
