@@ -94,7 +94,7 @@ function celdaClick (fila, columna, celdaClickeada){
     celda[fila][columna] = simbolo[numJugadorDeTurno];
     celdaClickeada.innerHTML = simbolo[numJugadorDeTurno];
     console.log(simbolo[numJugadorDeTurno] + " fila " + fila + ", columna "+ columna);
-    if (checkVictoria(fila, columna)){
+    if (numTurno>=5 && checkVictoria(fila, columna)){
         victoria();
     }else{
         proxTurno();
@@ -105,30 +105,19 @@ function celdaClick (fila, columna, celdaClickeada){
 function checkVictoria(fila, columna){
     var i;
     var texto = "";
-    for (i = 0; i < 3; i++) {
-        texto += celda[fila][i];
-    }
-    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria fila
-        return true;
-    }
+    for (i = 0; i < 3; i++) {texto += celda[fila][i];}
+    if (texto==simboloWin[numJugadorDeTurno]) return true;      //chequea victoria fila
     
     texto= "";
-    for (i = 0; i < 3; i++) {
-        texto += celda[i][columna];
-    }
-    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria columna
-        return true;
-    }
+    for (i = 0; i < 3; i++) {texto += celda[i][columna];}
+    if (texto==simboloWin[numJugadorDeTurno]) return true;      //chequea victoria columna
     
     texto = celda[0][0]+celda[1][1]+celda[2][2];
-    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria por diagonal \
-        return true;
-    }
+    if (texto==simboloWin[numJugadorDeTurno]) return true;      //chequea victoria por diagonal \
     
     texto = celda[2][0]+celda[1][1]+celda[0][2];
-    if (texto==simboloWin[numJugadorDeTurno]){              //chequea victoria por diagonal /
-        return true;
-    }
+    if (texto==simboloWin[numJugadorDeTurno]) return true;      //chequea victoria por diagonal /
+        
     return false;
 }
 
